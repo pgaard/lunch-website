@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="lunchApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+    <!--Bootstrap latest compiled and minified CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!--Optional theme-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyC76EG6Z0ufP22p-vxwAb74_LYiLzSR5mo",
+            authDomain: "lunch-f2cf1.firebaseapp.com",
+            databaseURL: "https://lunch-f2cf1.firebaseio.com",
+            projectId: "lunch-f2cf1",
+            storageBucket: "lunch-f2cf1.appspot.com",
+            messagingSenderId: "390531840681"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+
+    <script src="lunch.js"></script>
+</head>
+
+
+<body ng-controller="LunchController">
+    <div class="container">
+        <h4>Insite Lunch 2017</h4>
+        <h5>{{lunches.length}} Total Lunches</h5>
+        <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Place</th>
+                <th>Score</th>
+                <th>Address</th>
+            </tr>
+            </thead>
+            <tr ng-repeat="lunch in lunches | orderBy: Date : true">
+                <td>{{lunch.Date|date:"shortDate"}}</td>
+                <td> {{lunch.RestaurantName}}</td>
+                <td>{{lunch.Rating | ratingDisplay}}</td>
+                <td><a href="http://maps.google.com/?q={{lunch.Address}}">{{lunch.Address}}</a></td>
+            </tr>
+        </table>
+        </div>
+    </div>
+</body>
+</html>
