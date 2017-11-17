@@ -29,7 +29,7 @@
     </script>
 
 
-    <script src="lunch.js"></script>
+    <script src="lunch.js?v=2"></script>
 </head>
 
 
@@ -41,16 +41,22 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Date</th>
-                <th>Place</th>
-                <th>Score</th>
-                <th>Address</th>
+                <th ng-click="load('Date')">Date</th>
+                <th ng-click="load('RestaurantName')">Place</th>
+                <th ng-click="load('Rating')">Score</th>
+                <th ng-click="load('Address')">Address</th>
             </tr>
             </thead>
             <tr ng-repeat="lunch in lunches | orderBy: Date : true">
                 <td>{{lunch.Date|date:"shortDate"}}</td>
                 <td> {{lunch.RestaurantName}}</td>
-                <td>{{lunch.Rating | ratingDisplay}}</td>
+                <td>
+                    <div class="progress" style="width:150px;margin-bottom: 0px;" ng-show="lunch.Rating > 0">
+                        <div class="progress-bar" style="width:{{lunch.Rating * 20}}%">
+                            <span>{{lunch.Rating}}</span>
+                        </div>
+                    </div>
+                </td>
                 <td><a href="http://maps.google.com/?q={{lunch.Address}}">{{lunch.Address}}</a></td>
             </tr>
         </table>

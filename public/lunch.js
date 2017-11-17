@@ -13,7 +13,12 @@ app.filter("ratingDisplay", function(){
 });
 
 app.controller("LunchController", function($scope, $firebaseArray) {
-    var ref = firebase.database().ref().child("lunch");//.orderByChild("GroupId").equalTo("0aa02a51-2d13-40ac-9653-b0e6c4a38dfd");
-    var query = ref.orderByChild("Date");//.limitToLast(10);
-    $scope.lunches = $firebaseArray(query);
+    var ref = firebase.database().ref().child("lunch");
+
+
+    $scope.load = function(sortColumn){
+        $scope.lunches = $firebaseArray(ref.orderByChild(sortColumn));
+    }
+
+    $scope.load('Date');
 });
