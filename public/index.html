@@ -41,13 +41,13 @@
         <table class="table">
             <thead>
             <tr>
-                <th ng-click="load('Date')">Date</th>
-                <th ng-click="load('RestaurantName')">Place</th>
-                <th ng-click="load('Rating')">Score</th>
-                <th ng-click="load('Address')">Address</th>
+                <th ng-click="sort('Date')">Date</th>
+                <th ng-click="sort('RestaurantName')">Place</th>
+                <th ng-click="sort('Rating')">Score</th>
+                <th ng-click="sort('Address')">Address</th>
             </tr>
             </thead>
-            <tr ng-repeat="lunch in lunches | orderBy: Date : true">
+            <tr ng-repeat="lunch in lunches | orderBy: sortColumn : sortReverse">
                 <td>{{lunch.Date|date:"shortDate"}}</td>
                 <td> {{lunch.RestaurantName}}</td>
                 <td>

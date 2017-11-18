@@ -14,11 +14,24 @@ app.filter("ratingDisplay", function(){
 
 app.controller("LunchController", function($scope, $firebaseArray) {
     var ref = firebase.database().ref().child("lunch");
+    
+    $scope.lunches = $firebaseArray(ref);
+    $scope.lunches.$loaded().then(function(list){
+        angular.forEach(list, function(value){
+            if(!value.Rating) value.Rating = 0
+        });
+    });
 
+    $scope.sortColumn = "Date";
+    $scope.sortReverse = true;
 
-    $scope.load = function(sortColumn){
-        $scope.lunches = $firebaseArray(ref.orderByChild(sortColumn));
+    $scope.sort = function(sortColumn){
+        if($scope.sortColumn == sortColumn){
+            $scope.sortReverse = !$scope.sortReverse;
+        }
+        else{
+            $scope.sortColumn = sortColumn;
+            $scope.sortReverse = true;
+        }
     }
-
-    $scope.load('Date');
 });
